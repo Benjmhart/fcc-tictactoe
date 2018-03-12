@@ -1,3 +1,4 @@
+/*global $ jQuery*/
 /** 
 TODO
 */
@@ -37,7 +38,9 @@ var corners =[1,3,7,9];
 //reset state stays clean
 var turns=0;
 //listener - case where player chooses X
-$('#identX').click(function(){
+$('#identX').click(function(e){
+  console.log(e)
+  e.stopImmediatePropagation()
   playerIdent='X';
   cpuIdent='O';
   playerTurn=true;
@@ -46,7 +49,8 @@ $('#identX').click(function(){
   $('#overlay').slideUp();
 });
 //case where player chooses O
-$('#identO').click(function(){
+$('#identO').click(function(e){
+  e.stopImmediatePropagation()
   playerIdent='O';
   cpuIdent='X';
   playerTurn=false;
@@ -163,10 +167,15 @@ function getadj(val){
 }
 //function to find diagonal opposite corners
 function getopp(val){
-  //console.log('getopp is running with: '+val);
+  console.log('getopp is running with: '+val);
   if(val[0]=='1'){return 9;}
+  if(val[0]=='2'){return 7;}
   if(val[0]=='3'){return 7;}
+  if(val[0]=='4'){return 3;}
+  if(val[0]=='5'){return 7;}
+  if(val[0]=='6'){return 7;}
   if(val[0]=='7'){return 3;}
+  if(val[0]=='8'){return 1;}
   if(val[0]=='9'){return 1;}
 }
 //function to check if a list of moves is available and replace them with a new list of moves.
@@ -290,6 +299,7 @@ function cpuTurn(){
         taken = corner;
       }
     })
+    if (!taken){taken = gamestate.player[0]}
     console.log('the player has chosen ' + taken);
     selection = getopp([taken]);
     
@@ -414,7 +424,6 @@ function gameover(){
   $('.spot').each(function(){
     this.innerHTML='<p></p>';
   });
-  winmove=false;
   gamestate={
   '1':'',
   '2':'',

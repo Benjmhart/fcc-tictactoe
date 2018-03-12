@@ -29,13 +29,14 @@ body{
   color:black;
   height: 17vw;
   max-height:22vh;
-  padding:;
   border:2px solid red;
   border-color:black;
   font-size:10vh;
 }
 .spot p{
-  padding-top:2vh;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 @media(max-width:820px){
   .spot{
